@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<th:block th:fragment="adminHeader">
+  <link rel="stylesheet" th:href="@{common/css/admin-header.css}">
+
+  <header class="admin-header">
+    <div class="admin-header__bar">
+      <a class="admin-header__brand" th:href="@{/admin}">
+        <img th:src="@{/common/images/main_logo.png}">
+      </a>
+
+      <nav class="admin-header__nav">
+        <a class="admin-header__link is-active" th:href="@{/admin/dashboard}">대시보드</a>
+      </nav>
+
+      <div class="admin-header__actions">
+        <a class="admin-header__logout" th:href="@{/logout}">로그아웃</a>
+      </div>
+    </div>
+
+    <div class="admin-header__accent"></div>
+  </header>
+</th:block>
+</body>
+</html>
