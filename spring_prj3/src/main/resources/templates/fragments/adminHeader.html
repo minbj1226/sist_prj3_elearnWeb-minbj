@@ -6,17 +6,17 @@
 </head>
 <body>
 <th:block th:fragment="adminHeader">
-  <link rel="stylesheet" th:href="@{common/css/admin-header.css}">
+  <link rel="stylesheet" th:href="@{/common/css/admin-header.css}">
 
   <header class="admin-header">
     <div class="admin-header__bar">
-      <a class="admin-header__brand" th:href="@{/admin}">
+      <a class="admin-header__brand" th:href="@{/admin/dashboard}">
         <img th:src="@{/common/images/main_logo.png}">
       </a>
 
 	<!-- 대시보드, 강사관리, 교육과목 관리, 문의 관리, 회원 관리, 공지사항 관리, 강의 관리, 강의 리뷰 관리-->
       <nav class="admin-header__nav">
-        <a class="admin-header__link is-active" th:href="@{/admin/dashboard}">대시보드</a>
+        <span class="admin-header__link">대시보드</span>
       </nav>
 
       <div class="admin-header__actions">
