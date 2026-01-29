@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>관리자 사이드바</title>
+</head>
+<body>
+<th:block th:fragment="adminSidebar">
+  <link rel="stylesheet" th:href="@{/common/css/admin-sidebar.css}" />
+    <nav class="admin-sidebar-nav">
+      <ul class="admin-sidebar-list">
+        <li><a class="admin-sidebar-link is-active" th:href="@{/admin/dashboard}">대시보드</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/curriculum}">교육 과목 관리</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/question}">문의 관리</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/member}">회원 관리</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/instructor}">강사 관리</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/announcement}">공지사항 관리</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/lecture}">강의 관리</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/review}">리뷰 관리</a></li>
+      </ul>
+    </nav>
+</th:block>
+</body>
+</html>

@@ -8,6 +8,7 @@ public class AdminDashbaordController {
 
 	@GetMapping("/")
 	public String dashboard() {
-		return "/fragments/header";
+		
+		return "admin/dashboard/dashboard";
 	}
 }
