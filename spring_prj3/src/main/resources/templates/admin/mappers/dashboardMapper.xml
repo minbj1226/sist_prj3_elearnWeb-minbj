@@ -24,4 +24,17 @@ select sum(price * usercount)as all_profit
 from lecture
 </select>
 
+<select id="selectLectProfit" resultType="lectProfitDomain">
+select p.time as time, l.name as lect_name, i.name as inst_name, p.price*0.967 as inst_profit
+from payment p
+join payment_detail pd
+on p.payrec_id=pd.payrec_id
+join payment_detail2 pd2
+on pd.payrec_id=pd2.payrec_id
+join lecture l
+on l.lect_id=pd2.lect_id
+join instructor i
+on i.inst_id=l.inst_id
+</select>
+
 </mapper>

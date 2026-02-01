@@ -28,14 +28,14 @@
           <div class="stat-header">
             <h2 class="stat-label">총 강사 수</h2>
           </div>
-          <div class="stat-value" th:text="${instCnt}"></div>
+          <div class="stat-value" th:text="${instCnt}+'명'"></div>
         </article>
 		<!-- 총 강의 수 -->
         <article class="stat-card">
           <div class="stat-header">
             <h2 class="stat-label">총 강의 수</h2>
           </div>
-          <div class="stat-value">총 강의 수 출력 부분 db에서 select</div>
+          <div class="stat-value" th:text="${lectCnt}+'개'"></div>
         </article>
 
 		<!-- 총 수강생 수 -->
@@ -43,7 +43,7 @@
           <div class="stat-header">
             <h2 class="stat-label">총 수강생 수</h2>
           </div>
-          <div class="stat-value">총 강의 수 출력 부분 db에서 select</div>
+          <div class="stat-value" th:text="${userCnt}+'명'"></div>
         </article>
         
 		<!-- 강의 총 수익 -->
@@ -51,7 +51,7 @@
           <div class="stat-header">
             <h2 class="stat-label">강의 총 수익</h2>
           </div>
-          <div class="stat-value">강의 총 수익 출력 부분 db에서 select</div>
+          <div class="stat-value" th:text="${totalProfit}+'원'"></div>
         </article>
       </section>
 	  
@@ -63,7 +63,7 @@
             <h2>강의 수익</h2>
           </div>
           <div class="panel-controls">
-            <select class="panel-select" aria-label="���� ����">
+            <select class="panel-select">
               <!-- 강사 select 해서 option에 생성  -->
               <option>---강사 선택---</option>
               <option>곽우신</option>
@@ -72,7 +72,7 @@
             </select>
             <!-- 강의 총 수익 -->
             <div class="pill">
-              <span class="pill-value">3,564,346,343</span>
+              <span class="pill-value" th:text="${totalProfit}+'원'"></span>
             </div>
             <!-- 나의 수익 -->
             <div class="pill">
@@ -98,23 +98,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>2023-03-31 23:14</td>
-                  <td>이것이 강의다</td>
-                  <td>곽우신</td>
-                  <td>6,000</td>
-                </tr>
-                <tr>
-                  <td>2023-03-31 21:17</td>
-                  <td>독도킥</td>
-                  <td>김장훈</td>
-                  <td>8,840</td>
-                </tr>
-                <tr>
-                  <td>2023-03-31 19:46</td>
-                  <td>김치 좀 담가보자</td>
-                  <td>김장철</td>
-                  <td>12,400</td>
+                <tr th:each="lectProfit:${lectProfitList}">
+                  <td th:text="${#dates.format(lectProfit.time, 'yyyy-MM-dd')}"></td>
+                  <td th:text="${lectProfit.lect_name}"></td>
+                  <td th:text="${lectProfit.inst_name}"></td>
+                  <td th:text="${lectProfit.inst_profit}"></td>
                 </tr>
               </tbody>
             </table>

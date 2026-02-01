@@ -1,5 +1,7 @@
 package kr.co.sist.admin.dashboard;
 
+import java.util.List;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,4 +35,11 @@ public class AdminDashBoardService {
 		
 		return count;
 	}//getTotalProfit
+	
+	public List<LectProfitDomain> getLectProfit() throws PersistenceException {
+		List<LectProfitDomain> lectProfitList;
+		
+		lectProfitList=adbm.selectLectProfit();
+		return lectProfitList;
+	}//getLectProfit
 }

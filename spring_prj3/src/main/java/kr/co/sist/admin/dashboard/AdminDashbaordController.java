@@ -1,5 +1,7 @@
 package kr.co.sist.admin.dashboard;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +23,13 @@ public class AdminDashbaordController {
 		int lectCnt=adbs.getTotalCountLect();
 		int userCnt=adbs.getTotalCountUser();
 		int totalProfit=adbs.getTotalProfit();
+		List<LectProfitDomain> lectProfitList=adbs.getLectProfit();
 		
 		model.addAttribute("instCnt", instCnt);
 		model.addAttribute("lectCnt", lectCnt);
 		model.addAttribute("userCnt", userCnt);
 		model.addAttribute("totalProfit", totalProfit);
+		model.addAttribute("lectProfitList", lectProfitList);
 		
 		return "admin/dashboard/dashboard";
 	}
