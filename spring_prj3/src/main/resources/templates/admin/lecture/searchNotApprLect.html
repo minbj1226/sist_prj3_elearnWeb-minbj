@@ -52,13 +52,14 @@
             </tr>
           </thead>
           <tbody>
+          <!-- 행 전체 클릭해서 넘어가게 하고 싶으면 onclick="location.href='/admin/dashboard'" --> 
             <tr class="course-row" th:each="notApprLects : ${notApprLectList}" th:object="${notApprLects}">
               <!-- 이미지 -->
               <td class="course-thumb">
                 <img th:src="@{'/common/images/'+*{thumbnail}}" alt="">
               </td>
               <!-- 강의명 -->
-              <td class="course-title" th:text="*{lect_name}"></td>
+              <td class="course-title"><a th:href="@{/admin/dashboard}" th:text="*{lect_name}"></a></td>
               <!-- 등록일 -->
               <td class="status status--open" th:text="*{regDate}"></td>
               <!-- 강사명 -->

@@ -5,7 +5,10 @@
 <title>관리자 사이드바</title>
 <script type="text/javascript">
 $(function(){
-
+	/* 사이드바에서 클릭하면 클릭한 li 태그 is-acitve로 활성화 
+	$(".admin-sidebar-list").click(function(){
+		alert("dwdw");
+	}) */
 });//ready
 </script>
 </head>
@@ -14,7 +17,7 @@ $(function(){
   <link rel="stylesheet" th:href="@{/common/css/admin-sidebar.css}" />
     <nav class="admin-sidebar-nav">
       <ul class="admin-sidebar-list">
-        <li><a class="admin-sidebar-link is-active" th:href="@{/admin/dashboard}">대시보드</a></li>
+        <li><a class="admin-sidebar-link" th:href="@{/admin/dashboard}">대시보드</a></li>
         <li><a class="admin-sidebar-link" th:href="@{/admin/lecture/searchAllLect}">교육 과목 관리</a></li>
         <li><a class="admin-sidebar-link" th:href="@{/admin/question/adminQuestionFrm}">문의 관리</a></li>
         <li><a class="admin-sidebar-link" th:href="@{/admin/member/searchUser}">회원 관리</a></li>

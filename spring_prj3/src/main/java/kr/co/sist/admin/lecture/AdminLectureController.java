@@ -19,6 +19,9 @@ public class AdminLectureController {
 	public String searhAllLect(Model model) {
 		List<ManageLectureDomain> lectureList=als.searchLectureList();
 		model.addAttribute("lectList", lectureList);
+
+		//헤더에 사용할 페이지명
+		model.addAttribute("pageTitle", "교육 과목 관리");
 		
 		return "admin/lecture/searchAllLect";
 	}
@@ -27,6 +30,9 @@ public class AdminLectureController {
 	public String searchNotApprLect(Model model) {
 		List<ManageNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList();
 		model.addAttribute("notApprLectList", notApprLectureList);
+		
+		//헤더에 사용할 페이지명
+		model.addAttribute("pageTitle", "강의 관리");
 		
 		return "admin/lecture/searchNotApprLect";
 	}

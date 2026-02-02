@@ -25,11 +25,17 @@ public class AdminDashbaordController {
 		int totalProfit=adbs.getTotalProfit();
 		List<LectProfitDomain> lectProfitList=adbs.getLectProfit();
 		
+		//상단 4개의 데이터 값
 		model.addAttribute("instCnt", instCnt);
 		model.addAttribute("lectCnt", lectCnt);
 		model.addAttribute("userCnt", userCnt);
 		model.addAttribute("totalProfit", totalProfit);
+		
+		//하단 수익 데이터
 		model.addAttribute("lectProfitList", lectProfitList);
+		
+		//헤더에 쓸 페이지명
+		model.addAttribute("pageTitle", "대시보드");
 		
 		return "admin/dashboard/dashboard";
 	}
