@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" th:href="@{/admin/dashboard/dashboard.css}" />
-  <link rel="stylesheet" th:href="@{/admin/lecture/lecture.css}" />
+  <link rel="stylesheet" th:href="@{/admin/lecture/allLecture.css}" />
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -71,14 +71,17 @@ $(function(){
           <tbody>
             <tr class="course-row" th:each="lects : ${lectList}" th:object="${lects}">
               <td class="course-thumb">
-                <img src="/common/images/sample-course.png" alt="">
+                <img th:src="@{'/common/images/'+*{thumbnail}}" alt="">
               </td>
               <td class="course-title" th:text="*{lect_name}"></td>
               <td th:text="*{score}"></td>
               <td th:text="*{usercount}"></td>
               <td th:text="*{inst_name}"></td>
               <td th:text="*{total_profit}"></td>
-              <td class="status status--open" th:text="*{availability}"></td>
+              <td class="status status--open">
+              <span th:if="*{availability eq 1}">공개</span>
+              <span th:unless="*{availability eq 1}">비공개</span>
+              </td>
               <td class="course-actions">
                 <button class="btn btn--ghost">중지</button>
                 <button class="btn btn--primary">공개</button>

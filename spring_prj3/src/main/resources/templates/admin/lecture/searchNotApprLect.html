@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" th:href="@{/admin/dashboard/dashboard.css}" />
+  <link rel="stylesheet" th:href="@{/admin/lecture/notApprLecture.css}" />
 </head>
 <body class="admin-dashboard">
   <div id="header">
@@ -19,6 +20,60 @@
     <aside class="admin-sidebar">
     	<th:block th:replace="~{fragments/adminSidebar :: adminSidebar}"></th:block>
     </aside>
+    <!-- 좌측 상단 제목 -->
+    <main class="admin-content">
+      <section class="course-page">
+        <header class="course-header">
+          <h1>강의 관리</h1>
+        </header>
+
+		<!-- 옵션 선택바 -->
+        <div class="course-toolbar">
+          <div class="course-filter">
+            <label class="sr-only" for="category">카테고리</label>
+            <select id="category">
+              <option>카테고리 선택</option>
+              <option>개발</option>
+              <option>디자인</option>
+              <option>마케팅</option>
+            </select>
+          </div>
+        </div>
+
+		<!-- 테이블 내용 -->
+        <table class="course-table">
+          <thead>
+            <tr>
+              <th>이미지</th>
+              <th>강의명</th>
+              <th>등록일</th>
+              <th>강사</th>
+              <th>상태</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="course-row" th:each="notApprLects : ${notApprLectList}" th:object="${notApprLects}">
+              <!-- 이미지 -->
+              <td class="course-thumb">
+                <img th:src="@{'/common/images/'+*{thumbnail}}" alt="">
+              </td>
+              <!-- 강의명 -->
+              <td class="course-title" th:text="*{lect_name}"></td>
+              <!-- 등록일 -->
+              <td class="status status--open" th:text="*{regDate}"></td>
+              <!-- 강사명 -->
+              <td th:text="*{inst_name}"></td>
+              <!-- 상태 -->
+              <td class="status status--open">
+              	<span th:if="*{approval eq 1}">승인</span>
+              	<span th:unless="*{approval eq 1}">대기중</span>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+      </section>
+    </main>
   </div>
   
 </body>

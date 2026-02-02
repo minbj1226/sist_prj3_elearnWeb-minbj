@@ -8,5 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AdminLectureMapper {
 	
 	public List<ManageLectureDomain> selectLectList(); 
-
+	public List<ManageNotApprLectureDomain> selectNotApprLectList();
+	
 }

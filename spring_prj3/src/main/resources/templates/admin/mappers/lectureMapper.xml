@@ -14,4 +14,14 @@ join instructor i
 on i.inst_id=l.inst_id
 </select>
 
+<!-- 등록일 최신순으로 정렬 -->
+<select id="selectNotApprLectList" resultType="notApprlectListDomain">
+select l.thumbnail as thumbnail, l.name as lect_name, l.regdate,
+i.name as inst_name, l.approval as approval
+from lecture l
+join instructor i
+on i.inst_id=l.inst_id
+order by regdate desc
+</select>
+
 </mapper>

@@ -8,6 +8,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+/**
+ * 교육 과목 관리 테이블에 해당하는 도메인
+ */
 @Alias("lectListDomain")
 
 @Getter

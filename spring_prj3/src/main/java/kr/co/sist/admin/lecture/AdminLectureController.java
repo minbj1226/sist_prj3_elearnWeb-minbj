@@ -25,6 +25,8 @@ public class AdminLectureController {
 	
 	@GetMapping("/searchNotApprLect")
 	public String searchNotApprLect(Model model) {
+		List<ManageNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList();
+		model.addAttribute("notApprLectList", notApprLectureList);
 		
 		return "admin/lecture/searchNotApprLect";
 	}
