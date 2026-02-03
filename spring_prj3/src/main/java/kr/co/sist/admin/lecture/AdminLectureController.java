@@ -16,10 +16,18 @@ public class AdminLectureController {
 	private AdminLectureService als;
 	
 	@GetMapping("/searchAllLect")
-	public String searhAllLect(Model model) {
+	public String searhAllLect(Model model, ManageLectureSearchDTO mlsDTO) {
+		List<String> category=als.searchAllCategory();
+		//초기 교육 과목 관리 리스트
 		List<ManageLectureDomain> lectureList=als.searchLectureList();
+		//카테고리 적용 리스트
+		List<ManageLectureDomain> lectureByCategory=als.searchLectureByCategory(mlsDTO);
+		
+		model.addAttribute("categoryList", category);
+		model.addAttribute("categoryDTO", mlsDTO);
+		model.addAttribute("lectByCategory", lectureByCategory);
 		model.addAttribute("lectList", lectureList);
-
+		
 		//헤더에 사용할 페이지명
 		model.addAttribute("pageTitle", "교육 과목 관리");
 		

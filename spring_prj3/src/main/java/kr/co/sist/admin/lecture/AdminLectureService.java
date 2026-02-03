@@ -15,12 +15,23 @@ public class AdminLectureService {
 	@Autowired(required=false)
 	private AdminLectureMapper alm;
 	
+	public List<String> searchAllCategory() throws PersistenceException{
+		return alm.selectAllCategory();
+	}
+	
 	public List<ManageLectureDomain> searchLectureList() throws PersistenceException{
 		List<ManageLectureDomain> lectureList;
 		lectureList=alm.selectLectList();
 		
 		return lectureList;
 	}//searchLectureList
+	
+	public List<ManageLectureDomain> searchLectureByCategory(ManageLectureSearchDTO mlsDTO) throws PersistenceException{
+		List<ManageLectureDomain> lectureByCategory;
+		lectureByCategory=alm.selectLectureByCategory(mlsDTO);
+		System.out.println(mlsDTO);
+		return lectureByCategory;
+	}//searchLectureByCategory
 	
 	public List<ManageNotApprLectureDomain> searchNotApprLectList() throws PersistenceException{
 		List<ManageNotApprLectureDomain> notApprLectureList;

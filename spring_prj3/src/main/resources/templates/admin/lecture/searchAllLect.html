@@ -40,10 +40,7 @@ $(function(){
           <div class="course-filter">
             <label class="sr-only" for="category">카테고리</label>
             <select id="category">
-              <option>카테고리 선택</option>
-              <option>개발</option>
-              <option>디자인</option>
-              <option>마케팅</option>
+              <option th:each="category:${categoryList}" th:value="${category}" th:text="${category}"></option>
             </select>
           </div>
 
