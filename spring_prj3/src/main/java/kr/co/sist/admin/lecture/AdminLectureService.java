@@ -19,17 +19,17 @@ public class AdminLectureService {
 		return alm.selectAllCategory();
 	}
 	
-	public List<ManageLectureDomain> searchLectureList() throws PersistenceException{
-		List<ManageLectureDomain> lectureList;
-		lectureList=alm.selectLectList();
-		
-		return lectureList;
-	}//searchLectureList
+//	public List<ManageLectureDomain> searchLectureList() throws PersistenceException{
+//		List<ManageLectureDomain> lectureList;
+//		lectureList=alm.selectLectList();
+//		
+//		return lectureList;
+//	}//searchLectureList
 	
 	public List<ManageLectureDomain> searchLectureByCategory(ManageLectureSearchDTO mlsDTO) throws PersistenceException{
 		List<ManageLectureDomain> lectureByCategory;
 		lectureByCategory=alm.selectLectureByCategory(mlsDTO);
-		System.out.println(mlsDTO);
+		System.out.println(lectureByCategory);
 		return lectureByCategory;
 	}//searchLectureByCategory
 	

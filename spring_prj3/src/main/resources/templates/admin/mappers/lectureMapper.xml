@@ -12,7 +12,7 @@ order by name
 </select>
 
 <!-- 교육 과목 관리 페이지 전체 데이터 -->
-<select id="selectLectList" resultType="lectListDomain">
+<!-- <select id="selectLectList" resultType="lectListDomain">
 select l.thumbnail as thumbnail, l.name as lect_name, r.score as score, l.usercount as usercount, 
 i.name as inst_name, (l.usercount*l.price) as total_profit , l.availability as availability
 from lecture l
@@ -20,7 +20,7 @@ join review r
 on l.lect_id=r.lect_id
 join instructor i
 on i.inst_id=l.inst_id
-</select>
+</select> -->
 
 <!-- 교육 과목 관리 페이지 검색 데이터 -->
 <select id="selectLectureByCategory" resultType="lectListDomain" parameterType="lectSearchDTO">
