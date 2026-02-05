@@ -9,11 +9,41 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" th:href="@{/admin/dashboard/dashboard.css}" />
 <link rel="stylesheet" th:href="@{/admin/lecture/allLecture.css}" />
+<!-- 다이얼로그 용 라이브러리 -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.3/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	$("#stopDialog").dialog({
+	    autoOpen: false,
+	    modal: true,
+	    width: 400,
+	    buttons: {
+	      "예": function () {
+	        $(this).dialog("close");
+	        //ajax로 과목 
+	      },
+	      "아니오": function () {
+	        $(this).dialog("close");
+	      }
+	    }
+	  });
+	
+	//중지 버튼 눌렀을 때
+	$(".btn--ghost").click(function(){
+		stopLect();
+	});
 
+	//공개 버튼 눌렀을 때
+	$(".btn--primary").click(function(){
+		showLect();
+	});
 });
+
+function stopLect(){
+	$("#stopDialog").dialog("open");
+};
 
 function lectByCategory(){
 	var categoryName=$("#category").val();
@@ -28,7 +58,7 @@ function lectByCategory(){
 		success:function(html){
 			const newBody = $(html).find("#lectureTableBody");
 			  $("#lectureTableBody").replaceWith(newBody);
-			}
+		}
 	});
 }
 </script>
@@ -56,6 +86,7 @@ function lectByCategory(){
           <div class="course-filter">
             <label class="sr-only" for="category">카테고리</label>
             <select id="category" name="categoryName" onchange="lectByCategory()">
+              <option th:value="${category}">전체</option>
               <option th:each="category:${categoryList}"
                th:value="${category}" th:text="${category}" th:selected="${category == mlsDTO.categoryName}">
               </option>
@@ -99,12 +130,17 @@ function lectByCategory(){
               <span th:unless="*{availability eq 1}">비공개</span>
               </td>
               <td class="course-actions">
-                <button class="btn btn--ghost">중지</button>
                 <button class="btn btn--primary">공개</button>
+                <button class="btn btn--ghost">중지</button>
               </td>
             </tr>
           </tbody>
         </table>
+        
+        <!-- 중지 눌렀을 때 다이얼로그 출력 -->
+        <div id="stopDialog" title="강의 중지">
+  			<p>해당 강의를 중지하시겠습니까?</p>
+		</div>
       </section>
       
     </main>
