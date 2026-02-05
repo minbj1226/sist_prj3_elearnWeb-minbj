@@ -15,6 +15,7 @@
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	
 	$("#stopDialog").dialog({
 	    autoOpen: false,
 	    modal: true,
@@ -22,7 +23,19 @@ $(function(){
 	    buttons: {
 	      "예": function () {
 	        $(this).dialog("close");
-	        //ajax로 과목 
+	        var lectureId=$(".btn--ghost").val(); 
+	        //ajax로 과목
+	        $.ajax({
+	        	url:"/admin/lecture/updateLectState",
+	    		type:"GET",
+	    		data:{lectureId: lectureId},
+	    		error:function(xhr){
+	    			alert(xhr.status);
+	    		},
+	    		success:function(html){
+	    			
+	    		}
+	        });
 	      },
 	      "아니오": function () {
 	        $(this).dialog("close");
@@ -56,8 +69,11 @@ function lectByCategory(){
 			alert(xhr.status);
 		},
 		success:function(html){
-			const newBody = $(html).find("#lectureTableBody");
-			  $("#lectureTableBody").replaceWith(newBody);
+			var newBody = $(html).find("#lectureTableBody");
+			$("#lectureTableBody").replaceWith(newBody);
+			$(".btn--ghost").click(function(){
+				stopLect();
+			});
 		}
 	});
 }
@@ -126,12 +142,12 @@ function lectByCategory(){
               <td th:text="*{inst_name}"></td>
               <td th:text="*{total_profit}"></td>
               <td class="status status--open">
-              <span th:if="*{availability eq 1}">공개</span>
-              <span th:unless="*{availability eq 1}">비공개</span>
+              <span id="open" th:if="*{availability eq 1}">공개</span>
+              <span id="not open" th:unless="*{availability eq 1}">비공개</span>
               </td>
               <td class="course-actions">
-                <button class="btn btn--primary">공개</button>
-                <button class="btn btn--ghost">중지</button>
+                <button class="btn btn--primary" th:value="*{lect_id}">공개</button>
+                <button class="btn btn--ghost" th:value="*{lect_id}">중지</button>
               </td>
             </tr>
           </tbody>

@@ -24,7 +24,7 @@ on i.inst_id=l.inst_id
 
 <!-- 교육 과목 관리 페이지 검색 데이터 -->
 <select id="selectLectureByCategory" resultType="lectListDomain" parameterType="lectSearchDTO">
-select l.thumbnail as thumbnail, l.name as lect_name, r.score as score, l.usercount as usercount,
+select l.lect_id, l.thumbnail as thumbnail, l.name as lect_name, r.score as score, l.usercount as usercount,
 i.name as inst_name, (l.usercount*l.price) as total_profit , l.availability as availability
 from lecture l
 join review r
@@ -38,6 +38,14 @@ where l.approval=1
 and c.name = #{categoryName}
 </if>
 </select>
+
+<!-- 중지 버튼 클릭 시 중지 상태로 변경 -->
+<update id="updateStatus" parameterType="String">
+update lecture
+set availability=0
+where lect_id = #{lectureId}
+and availability=1
+</update>
 
 <!-- 강의 관리 페이지 등록일 최신순으로 정렬 -->
 <select id="selectNotApprLectList" resultType="notApprlectListDomain">

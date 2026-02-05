@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AdminLectureMapper {
 
 	public List<String> selectAllCategory();
-//	public List<ManageLectureDomain> selectLectList(); 
+	public int updateStatus(String lectureId);
 	public List<ManageLectureDomain> selectLectureByCategory(ManageLectureSearchDTO mlsDTO);
 	public List<ManageNotApprLectureDomain> selectNotApprLectList();
 	
