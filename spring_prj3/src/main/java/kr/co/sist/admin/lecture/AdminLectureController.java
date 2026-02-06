@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -40,12 +39,22 @@ public class AdminLectureController {
 		return "admin/lecture/searchAllLect";
 	}
 	
+	/**
+	 * 강의 상태 변경 method
+	 * @param lectureId
+	 */
 	@GetMapping("/updateLectState")
 	@ResponseBody
 	public void updateLectState(String lectureId) {
 		als.disableLecture(lectureId);
 	}
 	
+	
+	/**
+	 * 강의 관리 처리 method
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/searchNotApprLect")
 	public String searchNotApprLect(Model model) {
 		List<ManageNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList();

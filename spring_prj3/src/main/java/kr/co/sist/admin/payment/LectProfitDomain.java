@@ -1,4 +1,4 @@
-package kr.co.sist.admin.dashboard;
+package kr.co.sist.admin.payment;
 
 import java.util.Date;
 
