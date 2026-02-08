@@ -59,7 +59,7 @@
                 <img th:src="@{'/common/images/'+*{thumbnail}}" alt="">
               </td>
               <!-- 강의명 -->
-              <td class="course-title"><a th:href="@{/admin/dashboard}" th:text="*{lect_name}"></a></td>
+              <td class="course-title"><a th:href="@{/admin/lecture/searchDetailNotApprLect(lectureId=*{lect_id})}" th:text="*{lect_name}"></a></td>
               <!-- 등록일 -->
               <td class="status status--open" th:text="*{regDate}"></td>
               <!-- 강사명 -->
