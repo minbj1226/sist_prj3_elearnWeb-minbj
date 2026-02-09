@@ -20,17 +20,17 @@ public class AdminLectureController {
 	/**
 	 * 교육 과목 화면 처리 method
 	 * @param model
-	 * @param mlsDTO
+	 * @param alsDTO
 	 * @return
 	 */
 	@GetMapping("/searchAllLect")
-	public String searhAllLect(Model model, ManageLectureSearchDTO mlsDTO) {
+	public String searhAllLect(Model model, AdminLectureSearchDTO alsDTO) {
 		//카테고리(게임 개발, 교양 등등) 출력
 		List<String> category=als.searchAllCategory();
 		//카테고리 적용 리스트
-		List<ManageLectureDomain> lectureByCategory=als.searchLectureByCategory(mlsDTO);
+		List<AdminLectureDomain> lectureByCategory=als.searchLectureByCategory(alsDTO);
 		
-		model.addAttribute("mlsDTO", mlsDTO);
+		model.addAttribute("alsDTO", alsDTO);
 		model.addAttribute("categoryList", category);
 		model.addAttribute("lectByCategory", lectureByCategory);
 		
@@ -40,11 +40,17 @@ public class AdminLectureController {
 		return "admin/lecture/searchAllLect";
 	}
 	
+	/**
+	 * 교육 과목 관리-카테고리 변경 ajax
+	 * @param model
+	 * @param alsDTO
+	 * @return
+	 */
 	@GetMapping("/searchCategoryLect")
 	@ResponseBody 
-	public List<ManageLectureDomain> searchCategoryLect(Model model, ManageLectureSearchDTO mlsDTO) {
-		System.out.println(als.searchLectureByCategory(mlsDTO));
-		return als.searchLectureByCategory(mlsDTO); 
+	public List<AdminLectureDomain> searchCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
+		System.out.println(als.searchLectureByCategory(alsDTO));
+		return als.searchLectureByCategory(alsDTO); 
 	}
 	 
 	/**
@@ -63,21 +69,48 @@ public class AdminLectureController {
 	 * @return
 	 */
 	@GetMapping("/searchNotApprLect")
-	public String searchNotApprLect(Model model) {
-		List<ManageNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList();
-		model.addAttribute("notApprLectList", notApprLectureList);
+	public String searchNotApprLect(Model model, AdminLectureSearchDTO alsDTO) {
+		List<AdminNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList(alsDTO);
+		List<String> category=als.searchAllCategory();
 		
+		model.addAttribute("alsDTO", alsDTO);
+		model.addAttribute("notApprLectList", notApprLectureList);
+		model.addAttribute("categoryList", category);
 		//헤더에 사용할 페이지명
 		model.addAttribute("pageTitle", "강의 관리");
 		
 		return "admin/lecture/searchNotApprLect";
 	}
 	
+	/**
+	 * 강의 관리-카테고리 변경 ajax
+	 * @param model
+	 * @param alsDTO
+	 * @return
+	 */
+	@GetMapping("/searchNotApprCategoryLect")
+	@ResponseBody 
+	public List<AdminNotApprLectureDomain> searchNotApprCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
+		System.out.println(als.searchLectureByCategory(alsDTO));
+		return als.searchNotApprLectList(alsDTO); 
+	}
+	
+	/**
+	 * 강의관리 상세 페이지
+	 * @param model
+	 * @param lectureId
+	 * @return
+	 */
 	@GetMapping("/searchDetailNotApprLect")
 	public String searchDetailNotApprLect(Model model, @RequestParam String lectureId) {
 		List<AdminLectureDetailDomain> lectureDetail=als.searchLectureDetail(lectureId);
+		List<AdminLectureChapterDomain> lectureChapter=als.searchLectureChapter(lectureId);
+		System.out.println(lectureChapter);
+		
 		model.addAttribute("lecture", lectureDetail);
+		model.addAttribute("chapter", lectureChapter);
 		
 		return "admin/lecture/searchDetailNotApprLect";
 	}
+	
 }

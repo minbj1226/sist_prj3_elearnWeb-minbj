@@ -16,7 +16,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class ManageLectureDomain {
+public class AdminLectureDomain {
 	private String lect_id, lect_name, inst_name, thumbnail;
 	private int score, usercount, total_profit, availability;
 }

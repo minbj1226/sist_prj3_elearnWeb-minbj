@@ -23,18 +23,24 @@ public class AdminLectureService {
 	}
 
 	//교육 과목 관리 데이터
-	public List<ManageLectureDomain> searchLectureByCategory(ManageLectureSearchDTO mlsDTO) throws PersistenceException{
-		return alm.selectLectureByCategory(mlsDTO);
+	public List<AdminLectureDomain> searchLectureByCategory(AdminLectureSearchDTO alsDTO) throws PersistenceException{
+		return alm.selectLectureByCategory(alsDTO);
 	}
 	
 	//강의 관리 데이터
-	public List<ManageNotApprLectureDomain> searchNotApprLectList() throws PersistenceException {
-		return alm.selectNotApprLectList();
+	public List<AdminNotApprLectureDomain> searchNotApprLectList(AdminLectureSearchDTO alsDTO) throws PersistenceException {
+		System.out.println(alm.selectNotApprLectList(alsDTO));
+		return alm.selectNotApprLectList(alsDTO);
 	}
 	
 	//강의 관리 상세 데이터
 	public List<AdminLectureDetailDomain> searchLectureDetail(String lectureId) throws PersistenceException {
 		return alm.selectLectureDetail(lectureId);
+	}
+	
+	//강의 관리 상세 데이터(챕터)
+	public List<AdminLectureChapterDomain> searchLectureChapter(String lectureId) throws PersistenceException {
+		return alm.selectLectureChapter(lectureId);
 	}
 
 }

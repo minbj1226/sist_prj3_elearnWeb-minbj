@@ -13,8 +13,8 @@ public interface AdminLectureMapper {
 	public int updateAvailability(String lectureId, int availability);
 
 	//	<select id="selectLectureByCategory" resultType="lectListDomain" parameterType="lectSearchDTO">
-	public List<ManageLectureDomain> selectLectureByCategory(ManageLectureSearchDTO mlsDTO);
-	public List<ManageNotApprLectureDomain> selectNotApprLectList();
+	public List<AdminLectureDomain> selectLectureByCategory(AdminLectureSearchDTO alsDTO);
+	public List<AdminNotApprLectureDomain> selectNotApprLectList(AdminLectureSearchDTO alsDTO);
 	public List<AdminLectureDetailDomain> selectLectureDetail(String lectureId);
-	
+	public List<AdminLectureChapterDomain> selectLectureChapter(String lectureId);
 }

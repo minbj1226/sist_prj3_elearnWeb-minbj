@@ -58,7 +58,7 @@ function stopLect(){
 	$("#stopDialog").dialog("open");
 };
 
-//카테고리 누를 때 마다 변경하는 데이터
+//카테고리 누를 때 변경하는 테이블 데이터
 function lectByCategory(){
 	//select 태그
 	var categoryName=$("#category").val();
@@ -106,7 +106,7 @@ function lectByCategory(){
 			    tbody.append(row);
 			  });
 		}//success
-	});
+	});//ajax
 }
 </script>
 </head>
@@ -135,7 +135,7 @@ function lectByCategory(){
             <select id="category" name="categoryName" onchange="lectByCategory()">
               <option value="">전체</option>
               <option th:each="category:${categoryList}"
-               th:value="${category}" th:text="${category}" th:selected="${category == mlsDTO.categoryName}">
+               th:value="${category}" th:text="${category}" th:selected="${category == alsDTO.categoryName}">
               </option>
             </select>
           </div>
