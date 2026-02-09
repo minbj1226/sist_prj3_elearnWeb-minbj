@@ -29,7 +29,6 @@ public class AdminLectureService {
 	
 	//강의 관리 데이터
 	public List<AdminNotApprLectureDomain> searchNotApprLectList(AdminLectureSearchDTO alsDTO) throws PersistenceException {
-		System.out.println(alm.selectNotApprLectList(alsDTO));
 		return alm.selectNotApprLectList(alsDTO);
 	}
 	
@@ -41,6 +40,12 @@ public class AdminLectureService {
 	//강의 관리 상세 데이터(챕터)
 	public List<AdminLectureChapterDomain> searchLectureChapter(String lectureId) throws PersistenceException {
 		return alm.selectLectureChapter(lectureId);
+	}
+	
+	//강의 승인
+	public int approvalLecture(String lectureId) throws PersistenceException {
+		System.out.println(alm.updateApproval(lectureId));
+		return alm.updateApproval(lectureId);
 	}
 
 }

@@ -63,7 +63,7 @@ select l.lect_id as lect_id,
        l.usercount as user_count,
        l.availability as availability,
        l.approval as approval,
-       l.regdate as reg_date,
+       l.regdate as regDate,
        l.intro as intro
 from lecture l
 join instructor i on i.inst_id = l.inst_id
@@ -72,7 +72,7 @@ where l.lect_id = #{lectureId}
 </select>
 
 <!-- 강의 관리 상세 페이지-챕터 정보 -->
-<select id="selectLectureChapter" parameterType="lectSearchDTO" resultType="lectChapterDomain">
+<select id="selectLectureChapter" parameterType="String" resultType="lectChapterDomain">
 select ch.num as ch_num,
        ch.name as ch_name,
        ch.length as ch_length,
@@ -83,5 +83,13 @@ from chapter ch
 where ch.lect_id = #{lectureId}
 order by ch.num
 </select>
+
+<!-- 강의 승인 -->
+<update id="updateApproval" parameterType="String">
+update lecture
+set approval = 1
+where lect_id = #{lectureId}
+and approval = 0
+</update>
 
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -105,12 +106,17 @@ public class AdminLectureController {
 	public String searchDetailNotApprLect(Model model, @RequestParam String lectureId) {
 		List<AdminLectureDetailDomain> lectureDetail=als.searchLectureDetail(lectureId);
 		List<AdminLectureChapterDomain> lectureChapter=als.searchLectureChapter(lectureId);
-		System.out.println(lectureChapter);
 		
 		model.addAttribute("lecture", lectureDetail);
 		model.addAttribute("chapter", lectureChapter);
 		
 		return "admin/lecture/searchDetailNotApprLect";
+	}
+	
+	@PostMapping("/approve")
+	@ResponseBody
+	public void approve(String lectureId) {
+		als.approvalLecture(lectureId);
 	}
 	
 }

@@ -1,7 +1,5 @@
 package kr.co.sist.admin.lecture;
 
-import java.util.Date;
-
 import org.apache.ibatis.type.Alias;
 
 import lombok.Getter;

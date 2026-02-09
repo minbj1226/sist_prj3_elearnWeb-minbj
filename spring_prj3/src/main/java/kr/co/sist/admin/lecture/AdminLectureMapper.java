@@ -9,6 +9,7 @@ public interface AdminLectureMapper {
 
 	public List<String> selectAllCategory();
 	public int updateStatus(String lectureId);
+	//강의 승인 
 	public int updateApproval(String lectureId);
 	public int updateAvailability(String lectureId, int availability);
 

@@ -1,14 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>강의 상세 관리</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" th:href="@{/admin/dashboard/dashboard.css}" />
-  <link rel="stylesheet" th:href="@{/admin/lecture/allLecture.css}" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>강의 상세 관리</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" th:href="@{/admin/dashboard/dashboard.css}" />
+<link rel="stylesheet" th:href="@{/admin/lecture/notApprLecture.css}" />
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$(".btn--primary").click(function(){
+		if(!confirm("강의를 승인하겠습니까?")) return;
+		
+		var lectureId=$("#lectId").val();
+		$.ajax({
+			url:"/admin/lecture/approve",
+			type:"POST",
+			data:{lectureId: lectureId},
+			error:function(xhr){
+				alert(xhr.status);
+			},
+			success:function(data){
+				alert("승인 완료");
+				//여기에 승인 상태를 변경하는 dom 작성
+			}//success
+		});//ajax
+	});//click
+	
+	$(".btn--ghost").click(function(){
+		alert("승인 거절 메시지 폼 생성");
+	})
+});
+</script>
 </head>
 <body class="admin-dashboard">
   <div id="header">
@@ -41,12 +67,13 @@
           <div class="panel-body">
             <div class="table-wrap">
               <table class="data-table" th:each="lecture:${lecture}">
+               	<input type="hidden" id="lectId" th:value="${lecture.lect_id}"/>
                 <tbody>
                   <tr>
                     <th scope="row">강의명</th>
                     <td th:text="${lecture.lect_name}">강의명</td>
                     <th scope="row">카테고리</th>
-                    <!-- <td th:text="${lecture.categoryName}">카테고리</td> -->
+                  	<td th:text="${lecture.category_name}">카테고리</td>
                   </tr>
                   <tr>
                     <th scope="row">강사</th>
@@ -82,7 +109,7 @@
 
           <div class="panel-body">
             <div class="table-wrap">
-              <table class="data-table">
+              <table class="data-table curriculum-table">
                 <thead>
                   <tr>
                     <th scope="col">챕터명</th>
