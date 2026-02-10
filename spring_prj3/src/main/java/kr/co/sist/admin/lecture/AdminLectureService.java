@@ -44,7 +44,6 @@ public class AdminLectureService {
 	
 	//강의 승인
 	public int approvalLecture(String lectureId) throws PersistenceException {
-		System.out.println(alm.updateApproval(lectureId));
 		return alm.updateApproval(lectureId);
 	}
 

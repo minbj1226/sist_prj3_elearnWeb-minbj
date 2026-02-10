@@ -58,7 +58,7 @@ public class AdminLectureController {
 	 * 강의 상태 변경 method
 	 * @param lectureId
 	 */
-	@GetMapping("/updateLectState")
+	@PostMapping("/updateLectState")
 	@ResponseBody
 	public void updateLectState(String lectureId) {
 		als.disableLecture(lectureId);
@@ -92,7 +92,6 @@ public class AdminLectureController {
 	@GetMapping("/searchNotApprCategoryLect")
 	@ResponseBody 
 	public List<AdminNotApprLectureDomain> searchNotApprCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
-		System.out.println(als.searchLectureByCategory(alsDTO));
 		return als.searchNotApprLectList(alsDTO); 
 	}
 	
