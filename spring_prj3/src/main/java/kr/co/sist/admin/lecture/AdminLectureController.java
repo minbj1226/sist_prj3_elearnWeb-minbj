@@ -61,6 +61,7 @@ public class AdminLectureController {
 	@PostMapping("/updateLectState")
 	@ResponseBody
 	public void updateLectState(String lectureId) {
+		System.out.println(als.disableLecture(lectureId));
 		als.disableLecture(lectureId);
 	}
 	

@@ -14,6 +14,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.13.3/jquery-ui.min.js"></script>
 <script type="text/javascript" th:inline="javascript">
+let lectureId=null;
 $(function(){
 	//중지 눌렀을 때 나오는 다이얼로그
 	$("#stopDialog").dialog({
@@ -23,7 +24,7 @@ $(function(){
 	    buttons: {
 	      "예": function () {
 	        $(this).dialog("close");
-	        var lectureId=$(".btn--ghost").val(); 
+	        alert(lectureId);
 	        //ajax로 과목
 	        $.ajax({
 	        	url:"/admin/lecture/updateLectState",
@@ -61,6 +62,7 @@ function showLect(){
 function stopLect(btn){
 	//이미 비공개 상태이면 중지 버튼이 안눌리게
 	var availability = $(btn).closest(".course-row").attr("availability");
+	lectureId = $(btn).val();
 	if(availability==0) {
 		return;	
 	}
@@ -173,7 +175,7 @@ function lectByCategory(){
             </tr>
           </thead>
           <tbody id="lectureTableBody">
-            <tr class="course-row" th:each="lects : ${lectByCategory}" th:object="${lects}" th:attr="availability=*{availability}">
+            <tr class="course-row" th:each="lects, i : ${lectByCategory}" th:object="${lects}" th:attr="availability=*{availability}">
               <td class="course-thumb">
                 <img th:src="@{'/common/images/'+*{thumbnail}}" alt="">
               </td>
@@ -183,12 +185,11 @@ function lectByCategory(){
               <td th:text="*{inst_name}"></td>
               <td th:text="*{total_profit}"></td>
               <td class="status status--open">
-              <span id="open" th:if="*{availability eq 1}">공개</span>
-              <span id="not open" th:unless="*{availability eq 1}">비공개</span>
+              <span id="open" th:text="*{availability eq 1 ? '공개':'비공개'}">공개</span>
               </td>
               <td class="course-actions">
                 <button class="btn btn--primary" th:value="*{lect_id}">공개</button>
-                <button class="btn btn--ghost" th:value="*{lect_id}">중지</button>
+                <button class="btn btn--ghost" th:id="'stop-'+${i.count}" th:value="*{lect_id}">중지</button>
               </td>
             </tr>
           </tbody>
