@@ -14,6 +14,10 @@
 $(function(){
 
 });
+
+function profitByInst(){
+	alert($(".panel-select").val());
+}
 </script>
 </head>
 <body class="admin-dashboard">
@@ -34,11 +38,9 @@ $(function(){
         </header>
         
           <div class="panel-controls">
-            <select class="panel-select" onchange="">
+            <select class="panel-select" onchange="profitByInst()">
               <option value="">전체</option>
-              <th:block th:each="lectProfit:${lectProfitList}">
-                <option th:value="${lectProfit.inst_name}" th:text="${lectProfit.inst_name}"></option>
-              </th:block>
+              <option th:each="inst : ${instructor}" th:value="${inst}" th:text="${inst}"></option>
             </select>
             강의 총 수익
             <div class="pill">
@@ -46,7 +48,7 @@ $(function(){
             </div>
             관리자 수익
             <div class="pill">
-              <span class="pill-value">0</span>
+              <span class="pill-value" th:text="${#numbers.formatInteger(adminProfit, 3, 'COMMA')}+'원'"></span>
             </div>
           </div>
         </div>

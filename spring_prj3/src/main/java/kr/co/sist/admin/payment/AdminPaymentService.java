@@ -12,11 +12,17 @@ public class AdminPaymentService {
 	@Autowired(required=false)
 	private AdminPaymentMapper apm;
 	
+	public List<String> getAllInst() throws PersistenceException {
+		return apm.selectAllInst();
+	}
+	
 	public int getTotalProfit() throws PersistenceException {
-		int count=apm.selectAllProfit();
-		
-		return count;
+		return apm.selectAllProfit();
 	}//getTotalProfit
+	
+	public int getAdminProfit() throws PersistenceException {
+		return apm.selectAdminProfit();
+	}
 	
 	public List<LectProfitDomain> getLectProfit() throws PersistenceException {
 		List<LectProfitDomain> lectProfitList;

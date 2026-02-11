@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AdminLectureMapper {
 
 	public List<String> selectAllCategory();
-	
 	//강의 공개
 	public int updateOpen(String lectureId);
 	//강의 비공개
