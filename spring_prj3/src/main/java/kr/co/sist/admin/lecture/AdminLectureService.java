@@ -17,9 +17,14 @@ public class AdminLectureService {
 		return alm.selectAllCategory();
 	}
 	
-	//비공개 상태 변경
+	//공개 상태로 변경
+	public int ableLecture(String lectureId) throws PersistenceException{
+		return alm.updateOpen(lectureId);
+	}
+	
+	//비공개 상태로 변경
 	public int disableLecture(String lectureId) throws PersistenceException{
-		return alm.updateStatus(lectureId);
+		return alm.updateStop(lectureId);
 	}
 
 	//교육 과목 관리 데이터

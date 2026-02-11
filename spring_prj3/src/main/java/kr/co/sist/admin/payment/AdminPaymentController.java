@@ -17,7 +17,10 @@ public class AdminPaymentController {
 	
 	@GetMapping("/payment/searchPayPriceSum")
 	public String searchPaySum(Model model) { 
+		int totalProfit=aps.getTotalProfit();
 		List<LectProfitDomain> lectProfitList=aps.getLectProfit();
+		
+		model.addAttribute("totalProfit", totalProfit);
 		//하단 수익 데이터
 		model.addAttribute("lectProfitList", lectProfitList);
 		

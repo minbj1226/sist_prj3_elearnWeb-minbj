@@ -12,6 +12,12 @@ public class AdminPaymentService {
 	@Autowired(required=false)
 	private AdminPaymentMapper apm;
 	
+	public int getTotalProfit() throws PersistenceException {
+		int count=apm.selectAllProfit();
+		
+		return count;
+	}//getTotalProfit
+	
 	public List<LectProfitDomain> getLectProfit() throws PersistenceException {
 		List<LectProfitDomain> lectProfitList;
 		

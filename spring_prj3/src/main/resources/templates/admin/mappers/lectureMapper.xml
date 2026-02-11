@@ -28,8 +28,16 @@ and c.name = #{categoryName}
 </if>
 </select>
 
+<!-- 공개 버튼 클릭 시 중지 상태로 변경 -->
+<update id="updateOpen" parameterType="String">
+update lecture
+set availability=1
+where lect_id = #{lectureId}
+and availability=0
+</update>
+
 <!-- 중지 버튼 클릭 시 중지 상태로 변경 -->
-<update id="updateStatus" parameterType="String">
+<update id="updateStop" parameterType="String">
 update lecture
 set availability=0
 where lect_id = #{lectureId}

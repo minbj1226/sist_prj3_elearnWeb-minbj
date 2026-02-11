@@ -8,7 +8,11 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AdminLectureMapper {
 
 	public List<String> selectAllCategory();
-	public int updateStatus(String lectureId);
+	
+	//강의 공개
+	public int updateOpen(String lectureId);
+	//강의 비공개
+	public int updateStop(String lectureId);
 	//강의 승인 
 	public int updateApproval(String lectureId);
 	public int updateAvailability(String lectureId, int availability);

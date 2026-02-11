@@ -1,6 +1,8 @@
 package kr.co.sist.admin.lecture;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -60,9 +62,21 @@ public class AdminLectureController {
 	 */
 	@PostMapping("/updateLectState")
 	@ResponseBody
-	public void updateLectState(String lectureId) {
-		System.out.println(als.disableLecture(lectureId));
-		als.disableLecture(lectureId);
+	public Map<String, String> updateLectStop(@RequestParam String lectureId, @RequestParam String action) {
+		Map<String, String> status=new HashMap<String, String>();
+		
+		//중지 버튼을 눌렀을 때
+		if("stop".equals(action)) {
+			System.out.println(als.disableLecture(lectureId));
+			als.disableLecture(lectureId);
+			status.put("result", "비공개");
+		} else if("open".equals(action)) {
+			System.out.println(als.ableLecture(lectureId));
+			als.ableLecture(lectureId);
+			status.put("result", "공개");
+		}
+	
+		return status;
 	}
 	
 	/**

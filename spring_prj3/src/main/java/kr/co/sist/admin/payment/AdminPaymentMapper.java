@@ -7,5 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AdminPaymentMapper {
 	
+	public int selectAllProfit();
 	public List<LectProfitDomain> selectLectProfit();
 }

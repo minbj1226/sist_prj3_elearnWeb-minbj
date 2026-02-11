@@ -5,10 +5,10 @@
 <mapper namespace="kr.co.sist.admin.payment.AdminPaymentMapper">
 
 <!-- 강의 총 수익 데이터(환불/취소 불가 기준) 수강생*강의 가격으로 계산-->
-<!-- <select id="">
+<select id="selectAllProfit" resultType="int">
 select sum(l.price * l.usercount) as total_profit
-from lecture l;
-</select> -->
+from lecture l
+</select>
 
 <!-- 수익 관리 데이터 -->
 <select id="selectLectProfit" resultType="lectProfitDomain">
