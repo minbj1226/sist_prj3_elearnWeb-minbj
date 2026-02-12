@@ -19,7 +19,7 @@ function profitByInst(){
 	var instName=$(".panel-select").val();
 	
 	$.ajax({
-		url:"/admin/payment/searchPayPriceSum",
+		url:"/admin/payment/searchInstProfit",
 		type:"GET",
 		data:{instName: instName},
 		dataType:"json",
@@ -27,8 +27,26 @@ function profitByInst(){
 			alert(xhr.status);
 		},
 		success:function(data){
+			var tbody=$("#paymentTableBody");
+			tbody.empty();
 			
-		}
+			if(!data || data.length === 0) {
+				tbody.append('<tr><td style="text-align: center;" colspan="4">데이터가 없습니다.</td></tr>');
+				return;
+			}
+			
+			data.forEach(function(lect){
+				var row=`
+                <tr>
+                  <td>${lect.time ? lect.time.substring(0,10) : ''}</td>
+                  <td>${lect.lect_name}</td>
+                  <td>${lect.inst_name}</td>
+                  <td>${lect.inst_profit}</td>
+                </tr>
+			`;
+			tbody.append(row)
+			});
+		}//success
 	});
 	
 }
@@ -78,7 +96,7 @@ function profitByInst(){
                   <th scope="col">실제 수입</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="paymentTableBody">
                 <tr th:each="lectProfit:${lectProfitList}">
                   <td th:text="${#dates.format(lectProfit.time, 'yyyy-MM-dd')}"></td>
                   <td th:text="${lectProfit.lect_name}"></td>

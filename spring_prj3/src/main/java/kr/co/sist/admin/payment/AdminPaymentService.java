@@ -24,10 +24,10 @@ public class AdminPaymentService {
 		return apm.selectAdminProfit();
 	}
 	
-	public List<LectProfitDomain> getLectProfit() throws PersistenceException {
+	public List<LectProfitDomain> getLectProfit(AdminPaymentSearchDTO apsDTO) throws PersistenceException {
 		List<LectProfitDomain> lectProfitList;
 		
-		lectProfitList=apm.selectLectProfit();
+		lectProfitList=apm.selectLectProfit(apsDTO);
 		return lectProfitList;
 	}//getLectProfit
 }

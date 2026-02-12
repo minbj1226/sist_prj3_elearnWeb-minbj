@@ -12,5 +12,5 @@ public interface AdminPaymentMapper {
 	public int selectAllProfit();
 	//관리자 수익
 	public int selectAdminProfit();
-	public List<LectProfitDomain> selectLectProfit();
+	public List<LectProfitDomain> selectLectProfit(AdminPaymentSearchDTO apsDTO);
 }

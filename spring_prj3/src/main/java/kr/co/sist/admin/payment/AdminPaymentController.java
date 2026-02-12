@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/admin/payment")
 public class AdminPaymentController {
 
 	@Autowired
 	private AdminPaymentService aps;
 	
-	@GetMapping("/payment/searchPayPriceSum")
-	public String searchPaySum(Model model) { 
+	@GetMapping("/searchPayPriceSum")
+	public String searchPaySum(Model model, AdminPaymentSearchDTO apsDTO) { 
 		int totalProfit=aps.getTotalProfit();
 		int adminProfit=aps.getAdminProfit();
 		List<String> instList=aps.getAllInst();
-		List<LectProfitDomain> lectProfitList=aps.getLectProfit();
+		List<LectProfitDomain> lectProfitList=aps.getLectProfit(apsDTO);
 		
 		model.addAttribute("instructor", instList);
 		model.addAttribute("totalProfit", totalProfit);
@@ -34,5 +34,10 @@ public class AdminPaymentController {
 		return "admin/payment/payment";
 	}//searchPaySum
 	
-	
+	@GetMapping("/searchInstProfit")
+	@ResponseBody
+	public List<LectProfitDomain> searchInstProfit(Model model, AdminPaymentSearchDTO apsDTO) {
+		System.out.println(aps.getLectProfit(apsDTO));
+		return aps.getLectProfit(apsDTO);
+	}//searchInstProfit
 }
