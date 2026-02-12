@@ -16,7 +16,21 @@ $(function(){
 });
 
 function profitByInst(){
-	alert($(".panel-select").val());
+	var instName=$(".panel-select").val();
+	
+	$.ajax({
+		url:"/admin/payment/searchPayPriceSum",
+		type:"GET",
+		data:{instName: instName},
+		dataType:"json",
+		error:function(xhr){
+			alert(xhr.status);
+		},
+		success:function(data){
+			
+		}
+	});
+	
 }
 </script>
 </head>

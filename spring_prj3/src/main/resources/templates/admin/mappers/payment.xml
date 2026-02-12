@@ -22,7 +22,7 @@ from lecture l
 </select>
 
 <!-- 수익 관리 데이터 -->
-<select id="selectLectProfit" resultType="lectProfitDomain">
+<select id="selectLectProfit" parameterType="String" resultType="lectProfitDomain">
 select p.time as time, l.name as lect_name, i.name as inst_name, p.price as inst_profit
 from payment p
 join payment_detail pd
