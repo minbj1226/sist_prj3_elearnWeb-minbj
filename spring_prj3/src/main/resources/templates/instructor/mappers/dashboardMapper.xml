@@ -5,55 +5,32 @@
 <mapper namespace="kr.co.sist.instructor.dashboard.InstructorDashBoardMapper">
 
 <!-- 총 강의 수  -->
-<select id="selectCountLect" resultType="int">
+<select id="selectCountLect"  resultType="int">
 select count(*)
 from lecture
-where inst_id=#{inst_id}
+<!-- where inst_id=#{inst_id} -->
 </select>
 
 <!-- 평점 -->
-<select id="selectScoreReview" resultType="int">
+<select id="selectScoreReview"  resultType="int">
 select score
 from review r
 join lecture l
 on r.lect_id=l.lect_id
-where inst_id=#{inst_id}
+where inst_id='inst1'
 </select>
 
 <!-- 총 수강생 수 -->
-<select id="selectCountUser" resultType="int">
+<!-- <select id="selectCountUser" resultType="int">
 select count(*)
 from users
-</select>
+where 
+</select> -->
 
 <!-- 강의 총 수익 -->
-<select id="selectAllProfit" resultType="int">
+<!-- <select id="selectAllProfit" resultType="int">
 select sum(price * usercount)as all_profit
 from lecture
 </select>
-
-<!-- 가장 수익이 높은 강의 조회 -->
-<select id="selectTopPayLecture" resultType="dashboardDomain">
-select
-  l.lect_id,
-  l.name as lect_name,
-  sum(l.price * l.usercount) as estimated_profit,
-  l.usercount as user_count
-from lecture l
-group by l.lect_id, l.name, l.usercount
-order by estimated_profit desc
-</select>
-
-<!-- 가장 수강생이 많은 강의 조회 -->
-<select id="selectMostUserLecture" resultType="dashboardDomain">
-select 
-  l.lect_id, 
-  l.name as lect_name,
-  sum(l.price * l.usercount) as estimated_profit, 
-  l.usercount as user_count
-from lecture l
-group by l.lect_id, l.name, l.usercount
-order by usercount desc
-</select>
-
+ -->
 </mapper>

@@ -10,42 +10,15 @@ import org.springframework.stereotype.Service;
 public class InstructorDashBoardService {
 
 	@Autowired(required=false) 
-	private InstructorDashBoardMapper adbm;
+	private InstructorDashBoardMapper idbm;
 	
-	public int getTotalCountInst() throws PersistenceException {
-		int count=adbm.selectCountInst();
-		
+	public int getTotalCountLect() throws PersistenceException {
+		int count=idbm.selectCountLect();
 		return count;
 	}//getTotalCountInst
-
-	public int getTotalCountLect() throws PersistenceException {
-		int count=adbm.selectCountLect();
-		
-		return count;
-	}//getTotalCountLect
 	
-	public int getTotalCountUser() throws PersistenceException {
-		int count=adbm.selectCountUser();
-		
-		return count;
-	}//getTotalCountUser
-	
-	public int getTotalProfit() throws PersistenceException {
-		int count=adbm.selectAllProfit();
-		
-		return count;
-	}//getTotalProfit
-	
-	public List<InstructorDashBoardDomain> selectTopPayLecture() throws PersistenceException {
-		List<InstructorDashBoardDomain> list=adbm.selectTopPayLecture();
-		
-		return list;
-	}//selectTopPayLecture
-	
-	public List<InstructorDashBoardDomain> selectMostUserLecture() throws PersistenceException {
-		List<InstructorDashBoardDomain> list=adbm.selectMostUserLecture();
-		
-		return list;
-	}//selectMostUserLecture
-	
+	public int getTotalScoreReview() throws PersistenceException {
+		int score=idbm.selectScoreReview();
+		return score;
+	}//getTotalCountInst
 }

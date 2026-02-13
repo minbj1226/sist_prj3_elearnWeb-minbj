@@ -15,29 +15,16 @@ import jakarta.servlet.http.HttpSession;
 public class InstructorDashBoardController {
 
 	@Autowired
-	private InstructorDashBoardService adbs;
+	private InstructorDashBoardService idbs;
 	
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
-		int instCnt=adbs.getTotalCountInst();
-		int lectCnt=adbs.getTotalCountLect();
-		int userCnt=adbs.getTotalCountUser();
-		int totalProfit=adbs.getTotalProfit();
-		List<InstructorDashBoardDomain> payList=adbs.selectTopPayLecture();
-		List<InstructorDashBoardDomain> userList=adbs.selectMostUserLecture();
+		int lectCnt=idbs.getTotalCountLect();
+		int ScoreReview=idbs.getTotalScoreReview();
 		
-		//상단 4개의 데이터 값
-		model.addAttribute("instCnt", instCnt);
 		model.addAttribute("lectCnt", lectCnt);
-		model.addAttribute("userCnt", userCnt);
-		model.addAttribute("totalProfit", totalProfit);
+		model.addAttribute("ScoreReview", ScoreReview);
 		
-		//최고 수익 강의 데이터
-		model.addAttribute("payList", payList);
-		//최다 수강 과목
-		model.addAttribute("userList", userList);
-		System.out.println(userList);
-		//헤더에 쓸 페이지명
 		model.addAttribute("pageTitle", "대시보드");
 		
 		return "instructor/dashboard/dashboard";
