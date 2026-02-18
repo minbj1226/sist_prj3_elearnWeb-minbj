@@ -5,32 +5,41 @@
 <mapper namespace="kr.co.sist.instructor.dashboard.InstructorDashBoardMapper">
 
 <!-- 총 강의 수  -->
-<select id="selectCountLect"  resultType="int">
+<select id="selectCountLect" parameterType="String" resultType="int">
 select count(*)
 from lecture
-<!-- where inst_id=#{inst_id} -->
+where inst_id=#{instId}
 </select>
 
 <!-- 평점 -->
-<select id="selectScoreReview"  resultType="int">
+<select id="selectScoreReview" parameterType="String" resultType="int">
 select score
 from review r
 join lecture l
 on r.lect_id=l.lect_id
-where inst_id='inst1'
+where inst_id=#{instId}
 </select>
 
 <!-- 총 수강생 수 -->
-<!-- <select id="selectCountUser" resultType="int">
+<select id="selectCountUser" parameterType="String" resultType="int">
 select count(*)
-from users
-where 
-</select> -->
+from users u
+join my_cart mc
+on u.user_id=mc.user_id
+join lecture l
+on l.lect_id=mc.lect_id
+join instructor i
+on i.inst_id=l.inst_id
+where i.inst_id=#{instId}
+</select>
 
 <!-- 강의 총 수익 -->
-<!-- <select id="selectAllProfit" resultType="int">
+<select id="selectInstProfit" parameterType="String" resultType="int">
 select sum(price * usercount)as all_profit
-from lecture
+from lecture l
+join instructor i
+on l.inst_id=i.inst_id
+where i.inst_id=#{instId}
 </select>
- -->
+
 </mapper>

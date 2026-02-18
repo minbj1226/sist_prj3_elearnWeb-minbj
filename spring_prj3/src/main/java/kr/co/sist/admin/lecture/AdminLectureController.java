@@ -28,11 +28,20 @@ public class AdminLectureController {
 	 */
 	@GetMapping("/searchAllLect")
 	public String searhAllLect(Model model, AdminLectureSearchDTO alsDTO) {
+		int totalCount=als.countLectureByCategory(alsDTO); //강의 개수
+		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()); //페이지 수
+		System.out.println(totalCount + "/" + totalPage);
+		System.out.println(alsDTO.getSize() + "/" + alsDTO.getPage());
 		//카테고리(게임 개발, 교양 등등) 출력
 		List<String> category=als.searchAllCategory();
 		//카테고리 적용 리스트
 		List<AdminLectureDomain> lectureByCategory=als.searchLectureByCategory(alsDTO);
 		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("size", alsDTO.getSize());
+		model.addAttribute("page", alsDTO.getPage());
+		model.addAttribute("category", alsDTO.getCategoryName());
 		model.addAttribute("alsDTO", alsDTO);
 		model.addAttribute("categoryList", category);
 		model.addAttribute("lectByCategory", lectureByCategory);
@@ -51,9 +60,22 @@ public class AdminLectureController {
 	 */
 	@GetMapping("/searchCategoryLect")
 	@ResponseBody 
-	public List<AdminLectureDomain> searchCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
-		System.out.println(als.searchLectureByCategory(alsDTO));
-		return als.searchLectureByCategory(alsDTO); 
+	public Map<String, Object> searchCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
+		int totalCount=als.countLectureByCategory(alsDTO); //강의 개수
+		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()+1); //페이지 수
+		int size=alsDTO.getSize();
+		int page=alsDTO.getPage();
+		
+	    List<AdminLectureDomain> list = als.searchLectureByCategory(alsDTO);
+
+	    Map<String, Object> result=new HashMap<>();
+	    result.put("size", size);
+	    result.put("page", page);
+	    result.put("totalCount", totalCount);
+	    result.put("totalPage", totalPage);
+	    result.put("list", list);
+	    
+	    return result;
 	}
 	 
 	/**
@@ -86,9 +108,16 @@ public class AdminLectureController {
 	 */
 	@GetMapping("/searchNotApprLect")
 	public String searchNotApprLect(Model model, AdminLectureSearchDTO alsDTO) {
+		int totalCount=als.countNotApprLect(alsDTO); //강의 개수
+		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()); //페이지 수
+		
 		List<AdminNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList(alsDTO);
 		List<String> category=als.searchAllCategory();
 		
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("size", alsDTO.getSize());
+		model.addAttribute("page", alsDTO.getPage());
 		model.addAttribute("alsDTO", alsDTO);
 		model.addAttribute("notApprLectList", notApprLectureList);
 		model.addAttribute("categoryList", category);
@@ -106,8 +135,22 @@ public class AdminLectureController {
 	 */
 	@GetMapping("/searchNotApprCategoryLect")
 	@ResponseBody 
-	public List<AdminNotApprLectureDomain> searchNotApprCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
-		return als.searchNotApprLectList(alsDTO); 
+	public Map<String, Object> searchNotApprCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
+		int totalCount=als.countNotApprLect(alsDTO); //강의 개수
+		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()); //페이지 수
+		int size=alsDTO.getSize();
+		int page=alsDTO.getPage();
+		
+	    List<AdminNotApprLectureDomain> list = als.searchNotApprLectList(alsDTO);
+	    
+	    Map<String, Object> result=new HashMap<>();
+	    result.put("size", size);
+	    result.put("page", page);
+	    result.put("totalCount", totalCount);
+	    result.put("totalPage", totalPage);
+	    result.put("list", list);
+	    
+	    return result;
 	}
 	
 	/**

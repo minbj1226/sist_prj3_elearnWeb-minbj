@@ -20,7 +20,7 @@ let availability=null;
 let selectRow=null;
 $(function(){
 	//중지 눌렀을 때 나오는 다이얼로그
-	$("#stopDialog").dialog({
+	$("#stopDialogUi").dialog({
 	    autoOpen: false,
 	    modal: true,
 	    width: 400,
@@ -49,7 +49,7 @@ $(function(){
 	  });
 
 	//공개 눌렀을 때 나오는 다이얼로그
-	$("#openDialog").dialog({
+	$("#openDialogUi").dialog({
 	    autoOpen: false,
 	    modal: true,
 	    width: 400,
@@ -68,6 +68,7 @@ $(function(){
 					//stopLect 함수에서 open이라는 변수에 찾은 행에서 open이라는 id 검색
 					open.text("공개");
 					selectRow.attr("availability", "1");
+					$("#resultDialogUi").dialog("open");
 	    		}//success
 	        });//ajax
 	      },
@@ -81,6 +82,8 @@ $(function(){
 	$(document).on("click", ".btn--primary", function(){ showLect(this); } );
 	//중지 버튼 눌렀을 때
 	$(document).on("click", ".btn--ghost", function(){ stopLect(this); } );
+	//검색 버튼 눌렀을 때
+	$(document).on("click", "#search", function(){ searchLect(this); });
 });
 
 function showLect(btn){
@@ -95,7 +98,7 @@ function showLect(btn){
 		return;	
 	}
 	
-	$("#openDialog").dialog("open");
+	$("#openDialogUi").dialog("open");
 }
 
 function stopLect(btn){
@@ -109,8 +112,13 @@ function stopLect(btn){
 		return;	
 	}
 	
-	$("#stopDialog").dialog("open");
+	$("#stopDialogUi").dialog("open");
 };
+
+//검색어 기능
+function searchLect(){
+	alert($("#searchLect").val());
+}
 
 //카테고리 누를 때 변경하는 테이블 데이터
 function lectByCategory(){
@@ -126,16 +134,20 @@ function lectByCategory(){
 			alert(xhr.status);
 		},
 		success:function(data){
+			console.log(data);
 			var tbody = $("#lectureTableBody");
-			tbody.empty();
+			var pagination = $("#pagination");
 			
+			pagination.empty();
+			tbody.empty();
 			//데이터가 없으면 메시지 출력
-			if (!data || data.length === 0) {
+			if (!data || !data.list || data.list.length === 0) {
+			    $("#pagination").empty();
 			    tbody.append('<tr><td style="text-align : center;" colspan="8">데이터 없습니다.</td></tr>');
 			    return;
 			}
 			
-			data.forEach(function(lect){
+			data.list.forEach(function(lect){
 			    var row = `
 			      <tr class="course-row" availability="${lect.availability}">
 			        <td class="course-thumb">
@@ -194,10 +206,10 @@ function lectByCategory(){
           </form>
 
 		  <!-- 검색바 -->
-          <div class="course-search">
-            <input type="text" placeholder="강의명 / 강사 검색">
+          <!-- <div class="course-search">
+            <input type="text" placeholder="강의명 / 강사 검색" id="searchLect">
             <button type="button" id="search">검색</button>
-          </div>
+          </div> -->
         </div>
 
 		<!-- 테이블 내용 -->
@@ -234,16 +246,54 @@ function lectByCategory(){
             </tr>
           </tbody>
         </table>
+
+        <nav class="pagination" id="pagination">
+          <a class="page-btn" th:if="${page > 1}"
+             th:href="@{/admin/lecture/searchAllLect(page=${page-1}, size=${size})}">
+            &lsaquo; 이전
+          </a>
+          <span class="page-list">
+            <a class="page-btn"
+               th:each="p : ${#numbers.sequence(1, totalPage)}"
+               th:text="${p}"
+               th:href="@{/admin/lecture/searchAllLect(page=${p}, size=${size})}"
+               th:classappend="${p == page} ? 'is-active' : ''"></a>
+          </span>
+          <a class="page-btn" th:if="${page < totalPage}"
+             th:href="@{/admin/lecture/searchAllLect(page=${page+1}, size=${size})}">
+            다음 &rsaquo;
+          </a>
+        </nav>
         
-        <!-- 중지 눌렀을 때 다이얼로그 출력 -->
-        <div id="openDialog" title="강의 공개">
-  			<p>해당 강의를 공개하시겠습니까?</p>
-		</div>
-		
-        <!-- 중지 눌렀을 때 다이얼로그 출력 -->
-        <div id="stopDialog" title="강의 중지">
-  			<p>해당 강의를 중지하시겠습니까?</p>
-		</div>
+        <!-- 공개 눌렀을 때 다이얼로그 출력 -->
+        <div id="openDialogUi" title="">
+          <div class="confirm-card">
+            <div class="confirm-icon">
+              <span class="confirm-icon__dot"></span>
+            </div>
+            <h3 class="confirm-title">공개</h3>
+            <p class="confirm-message">해당 강의를 공개 하시겠습니까?</p>
+          </div>
+        </div>
+        
+        <!-- <div id="resultDialogUi" title="">
+  			<div class="confirm-card">
+    			<div class="confirm-icon"><span class="confirm-icon__dot"></span></div>
+    			<h3 class="confirm-title" id="resultTitle">공개</h3>
+    			<p class="confirm-message" id="resultMessage">강의가 공개 완료되었습니다.</p>
+  			</div>
+		</div> -->
+        
+		<!-- 중지 눌렀을 때 다이얼로그 출력 -->
+        <div id="stopDialogUi" title="">
+          <div class="confirm-card">
+            <div class="confirm-icon">
+              <span class="confirm-icon__dot"></span>
+            </div>
+            <h3 class="confirm-title">중지</h3>
+            <p class="confirm-message">해당 강의를 중지 하시겠습니까?</p>
+          </div>
+        </div>
       </section>
       
     </main>

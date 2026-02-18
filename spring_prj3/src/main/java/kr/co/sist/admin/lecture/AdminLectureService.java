@@ -32,9 +32,19 @@ public class AdminLectureService {
 		return alm.selectLectureByCategory(alsDTO);
 	}
 	
+	//교육 과목 관리 강의 개수
+	public int countLectureByCategory(AdminLectureSearchDTO alsDTO) throws PersistenceException {
+		return alm.selectLectureCount(alsDTO);
+	}
+	
 	//강의 관리 데이터
 	public List<AdminNotApprLectureDomain> searchNotApprLectList(AdminLectureSearchDTO alsDTO) throws PersistenceException {
 		return alm.selectNotApprLectList(alsDTO);
+	}
+	
+	//강의 관리 강의 개수
+	public int countNotApprLect(AdminLectureSearchDTO alsDTO) throws PersistenceException {
+		return alm.selectNotApprCount(alsDTO);
 	}
 	
 	//강의 관리 상세 데이터

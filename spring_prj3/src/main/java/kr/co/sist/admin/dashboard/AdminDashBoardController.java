@@ -19,6 +19,7 @@ public class AdminDashBoardController {
 	
 	@GetMapping("/dashboard")
 	public String dashboard(Model model, HttpSession session) {
+		session.setAttribute("adminId", "admin1"); //임시로 세션에 adminId 값 넣음
 		int instCnt=adbs.getTotalCountInst();
 		int lectCnt=adbs.getTotalCountLect();
 		int userCnt=adbs.getTotalCountUser();
