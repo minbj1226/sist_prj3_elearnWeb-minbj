@@ -101,7 +101,7 @@ function profitByInst(){
                   <td th:text="${#dates.format(lectProfit.time, 'yyyy-MM-dd')}"></td>
                   <td th:text="${lectProfit.lect_name}"></td>
                   <td th:text="${lectProfit.inst_name}"></td>
-                  <td th:text="${lectProfit.inst_profit}"></td>
+                  <td th:text="${#numbers.formatInteger(lectProfit.inst_profit, 3, 'COMMA')}+'원'"></td>
                 </tr>
               </tbody>
             </table>

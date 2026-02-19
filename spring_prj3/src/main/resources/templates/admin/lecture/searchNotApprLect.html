@@ -23,11 +23,12 @@ $(function(){
 //카테고리 누를 때 변경하는 테이블 데이터
 function lectByCategory(page){
 	var categoryName=$("#category").val();
+	var size=5;
 	
 	$.ajax({
 		url:"/admin/lecture/searchNotApprCategoryLect",
 		type:"GET",
-		data:{categoryName: categoryName},
+		data:{categoryName: categoryName, page: page, size: size},
 		dataType:"json",
 		error:function(xhr){
 			alert(xhr.status);
@@ -68,6 +69,28 @@ function lectByCategory(page){
 			    `;
 			    tbody.append(row);
 			  });
+			
+			var currentPage = Number(data.page) || 1;
+			var totalPage = Number(data.totalPage) || 1;
+			
+			if(totalPage >= 1) {
+				//이전
+				if (currentPage > 1) {
+				    pagination.append(`<a href="searchNotApprLect?page=${currentPage - 1}&size=${size}" class="page-btn" data-page="${currentPage - 1}">&lsaquo; 이전</a>`);
+				}
+				
+				var pageList = '<span class="page-list">';
+				for (let p = 1; p <= totalPage; p++) {
+			    	pageList += `<a href="searchNotApprLect?page=${currentPage}&size=${size}" class="page-btn ${p === currentPage ? 'is-active' : ''}" data-page="${p}">${p}</a>`;
+			    }
+				  pageList += '</span>';
+				  pagination.append(pageList);
+
+			  	// 다음
+			  	if (currentPage < totalPage) {
+			    	pagination.append(`<a href="searchNotApprLect?page=${currentPage + 1}&size=${size}" class="page-btn">다음 &rsaquo;</a>`);
+			  	}//end if
+			}//end if
 		}//success
 	});
 }

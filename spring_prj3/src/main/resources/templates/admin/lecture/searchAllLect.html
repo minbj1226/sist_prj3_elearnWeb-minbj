@@ -121,14 +121,15 @@ function searchLect(){
 }
 
 //카테고리 누를 때 변경하는 테이블 데이터
-function lectByCategory(){
+function lectByCategory(page){
 	//select 태그
 	var categoryName=$("#category").val();
+	var size=5;
 	
 	$.ajax({
 		url:"/admin/lecture/searchCategoryLect",
 		type:"GET",
-		data:{categoryName: categoryName},
+		data:{categoryName: categoryName, page: page, size: size},
 		dataType:"json",
 		error:function(xhr){
 			alert(xhr.status);
@@ -169,6 +170,28 @@ function lectByCategory(){
 			    `;
 			    tbody.append(row);
 			  });
+				
+				var currentPage = Number(data.page) || 1;
+				var totalPage = Number(data.totalPage) || 1;
+				
+				if(totalPage >= 1) {
+					//이전
+					if (currentPage > 1) {
+					    pagination.append(`<a href="searchAllLect?page=${currentPage - 1}&size=${size}" class="page-btn" data-page="${currentPage - 1}">&lsaquo; 이전</a>`);
+					}
+					
+					var pageList = '<span class="page-list">';
+					for (let p = 1; p <= totalPage; p++) {
+				    	pageList += `<a href="searchAllLect?page=${currentPage}&size=${size}" class="page-btn ${p === currentPage ? 'is-active' : ''}" data-page="${p}">${p}</a>`;
+				    }
+					  pageList += '</span>';
+					  pagination.append(pageList);
+
+				  	// 다음
+				  	if (currentPage < totalPage) {
+				    	pagination.append(`<a href="searchAllLect?page=${currentPage + 1}&size=${size}" class="page-btn">다음 &rsaquo;</a>`);
+				  	}//end if
+				}//end if
 		}//success
 	});//ajax
 }
@@ -196,7 +219,7 @@ function lectByCategory(){
           <form id="cateName">
           <div class="course-filter">
             <label class="sr-only" for="category">카테고리</label>
-            <select id="category" name="categoryName" onchange="lectByCategory()">
+            <select id="category" name="categoryName" onchange="lectByCategory(1)">
               <option value="">전체</option>
               <option th:each="category:${categoryList}"
                th:value="${category}" th:text="${category}" th:selected="${category == alsDTO.categoryName}">

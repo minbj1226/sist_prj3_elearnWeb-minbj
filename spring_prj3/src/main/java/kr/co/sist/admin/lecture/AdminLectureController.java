@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Controller
 @RequestMapping("/admin/lecture")
 public class AdminLectureController {
@@ -27,9 +29,9 @@ public class AdminLectureController {
 	 * @return
 	 */
 	@GetMapping("/searchAllLect")
-	public String searhAllLect(Model model, AdminLectureSearchDTO alsDTO) {
+	public String searhAllLect(Model model, AdminLectureSearchDTO alsDTO, HttpServletRequest req) {
 		int totalCount=als.countLectureByCategory(alsDTO); //강의 개수
-		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()); //페이지 수
+		int totalPage=(int) Math.ceil((double)totalCount/alsDTO.getSize()); //페이지 수
 		System.out.println(totalCount + "/" + totalPage);
 		System.out.println(alsDTO.getSize() + "/" + alsDTO.getPage());
 		//카테고리(게임 개발, 교양 등등) 출력
@@ -48,7 +50,7 @@ public class AdminLectureController {
 		
 		//헤더에 사용할 페이지명
 		model.addAttribute("pageTitle", "교육 과목 관리");
-		
+		model.addAttribute("currentUri", req.getRequestURI());
 		return "admin/lecture/searchAllLect";
 	}
 	
@@ -62,7 +64,7 @@ public class AdminLectureController {
 	@ResponseBody 
 	public Map<String, Object> searchCategoryLect(Model model, AdminLectureSearchDTO alsDTO) {
 		int totalCount=als.countLectureByCategory(alsDTO); //강의 개수
-		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()+1); //페이지 수
+		int totalPage=(int) Math.ceil((double)totalCount/alsDTO.getSize()); //페이지 수
 		int size=alsDTO.getSize();
 		int page=alsDTO.getPage();
 		
@@ -107,9 +109,9 @@ public class AdminLectureController {
 	 * @return
 	 */
 	@GetMapping("/searchNotApprLect")
-	public String searchNotApprLect(Model model, AdminLectureSearchDTO alsDTO) {
+	public String searchNotApprLect(Model model, AdminLectureSearchDTO alsDTO, HttpServletRequest req) {
 		int totalCount=als.countNotApprLect(alsDTO); //강의 개수
-		int totalPage=(int) Math.ceil(totalCount/alsDTO.getSize()); //페이지 수
+		int totalPage=(int) Math.ceil((double)totalCount/alsDTO.getSize()); //페이지 수
 		
 		List<AdminNotApprLectureDomain> notApprLectureList=als.searchNotApprLectList(alsDTO);
 		List<String> category=als.searchAllCategory();
@@ -123,6 +125,7 @@ public class AdminLectureController {
 		model.addAttribute("categoryList", category);
 		//헤더에 사용할 페이지명
 		model.addAttribute("pageTitle", "강의 관리");
+		model.addAttribute("currentUri", req.getRequestURI());
 		
 		return "admin/lecture/searchNotApprLect";
 	}

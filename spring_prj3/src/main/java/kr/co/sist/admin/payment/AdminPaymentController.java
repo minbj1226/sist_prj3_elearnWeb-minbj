@@ -7,8 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/admin/payment")
@@ -18,7 +19,7 @@ public class AdminPaymentController {
 	private AdminPaymentService aps;
 	
 	@GetMapping("/searchPayPriceSum")
-	public String searchPaySum(Model model, AdminPaymentSearchDTO apsDTO) { 
+	public String searchPaySum(Model model, AdminPaymentSearchDTO apsDTO, HttpServletRequest req) { 
 		int totalProfit=aps.getTotalProfit();
 		int adminProfit=aps.getAdminProfit();
 		List<String> instList=aps.getAllInst();
@@ -31,6 +32,8 @@ public class AdminPaymentController {
 		model.addAttribute("lectProfitList", lectProfitList);
 		//상단 제목
 		model.addAttribute("pageTitle", "수익 관리");
+		model.addAttribute("currentUri", req.getRequestURI());
+		
 		return "admin/payment/payment";
 	}//searchPaySum
 	
